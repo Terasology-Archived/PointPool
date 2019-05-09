@@ -1,0 +1,9 @@
+{
+    "id" : "PointPool",
+    "version" : "0.1.0-SNAPSHOT",
+    "author" : "",
+    "displayName" : "PointPool",
+    "description" : "",
+    "dependencies" : [],
+    "serverSideOnly" : false
+}
