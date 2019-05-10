@@ -19,6 +19,7 @@ import org.terasology.PointPool.event.FillPoolEvent;
 import org.terasology.entitySystem.Component;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
+import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.console.commandSystem.annotations.Command;
 import org.terasology.logic.console.commandSystem.annotations.CommandParam;
@@ -27,14 +28,15 @@ import org.terasology.logic.permission.PermissionManager;
 import org.terasology.network.ClientComponent;
 import org.terasology.registry.Share;
 
-@RegisterSystem
+@RegisterSystem(RegisterMode.AUTHORITY)
 @Share(PointPoolCommands.class)
 public class PointPoolCommands extends BaseComponentSystem {
 
-    @Command(value = "fill", shortDescription = "Fill pool by amount given", runOnServer = true,
+    @Command(value = "fill", shortDescription = "Fill pool by amount given",
             requiredPermission = PermissionManager.NO_PERMISSION)
     public String fill(@Sender EntityRef client, @CommandParam("amount") float amount) {
         ClientComponent clientComp = client.getComponent(ClientComponent.class);
+
         clientComp.character.send(new FillPoolEvent(amount, clientComp.character));
 
         return "Pool filled by " + amount;

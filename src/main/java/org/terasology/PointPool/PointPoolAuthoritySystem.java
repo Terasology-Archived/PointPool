@@ -29,14 +29,15 @@ public class PointPoolAuthoritySystem extends BaseComponentSystem {
 
     private static final Logger logger = LoggerFactory.getLogger(PointPoolAuthoritySystem.class);
 
-    @ReceiveEvent
-    private void fillPool(FillPoolEvent event, PointPoolComponent poolComponent) {
+    @ReceiveEvent(components = {PointPoolComponent.class})
+    private void onFillPool(FillPoolEvent event, EntityRef entity) {
+        PointPoolComponent poolComponent = entity.getComponent(PointPoolComponent.class);
         poolComponent.poolValue += event.getValue();
         if (poolComponent.poolValue > poolComponent.maxPoolValue) {
             poolComponent.poolValue = poolComponent.maxPoolValue;
         }
         event.getInstigator().saveComponent(poolComponent);
-        logger.info("Current status "+poolComponent.poolValue);
+        logger.info("Current status " + poolComponent.poolValue);
     }
 
     private void drainPool() {
