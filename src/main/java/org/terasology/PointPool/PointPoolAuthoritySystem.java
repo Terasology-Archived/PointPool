@@ -15,6 +15,9 @@
  */
 package org.terasology.PointPool;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
@@ -24,12 +27,16 @@ import org.terasology.PointPool.event.FillPoolEvent;
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class PointPoolAuthoritySystem extends BaseComponentSystem {
 
+    private static final Logger logger = LoggerFactory.getLogger(PointPoolAuthoritySystem.class);
+
     @ReceiveEvent
     private void fillPool(FillPoolEvent event, PointPoolComponent poolComponent) {
         poolComponent.poolValue += event.getValue();
         if (poolComponent.poolValue > poolComponent.maxPoolValue) {
             poolComponent.poolValue = poolComponent.maxPoolValue;
         }
+        event.getInstigator().saveComponent(poolComponent);
+        logger.info("Current status "+poolComponent.poolValue);
     }
 
     private void drainPool() {

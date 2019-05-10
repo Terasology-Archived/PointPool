@@ -28,7 +28,7 @@ public class PointPoolComponent implements Component {
     public float maxPoolValue = 100;
 
     @Replicate
-    public String poolType;
+    public String poolType = "";
 
     public PointPoolComponent() {
     }

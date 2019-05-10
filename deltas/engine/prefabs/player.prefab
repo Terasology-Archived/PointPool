@@ -1,0 +1,7 @@
+{
+  "PointPool": {
+    "poolValue": 0,
+    "maxPoolValue": 100,
+    "poolType": "Test"
+  }
+}

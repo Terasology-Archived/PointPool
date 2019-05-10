@@ -35,4 +35,8 @@ public class FillPoolEvent implements Event {
     public float getValue() {
         return value;
     }
+
+    public EntityRef getInstigator() {
+        return instigator;
+    }
 }
