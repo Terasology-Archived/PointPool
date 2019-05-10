@@ -30,7 +30,7 @@ public class PointPoolAuthoritySystem extends BaseComponentSystem {
     private static final Logger logger = LoggerFactory.getLogger(PointPoolAuthoritySystem.class);
 
     @ReceiveEvent(components = {PointPoolComponent.class})
-    private void onFillPool(FillPoolEvent event, EntityRef entity) {
+    public void onFillPool(FillPoolEvent event, EntityRef entity) {
         PointPoolComponent poolComponent = entity.getComponent(PointPoolComponent.class);
         poolComponent.poolValue += event.getValue();
         if (poolComponent.poolValue > poolComponent.maxPoolValue) {
