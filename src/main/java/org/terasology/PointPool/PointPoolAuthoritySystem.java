@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terasology.PointPool.event.DrainPoolEvent;
 import org.terasology.PointPool.event.InstantDrainEvent;
+import org.terasology.PointPool.event.InstantFillEvent;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
@@ -62,7 +63,12 @@ public class PointPoolAuthoritySystem extends BaseComponentSystem {
         logger.info("Current status " + pointPoolComponent.poolValue);
     }
 
-    private void instantFill() {
+    @ReceiveEvent(components = {PointPoolComponent.class})
+    public void instantFill(InstantFillEvent event, EntityRef entity) {
+        PointPoolComponent pointPoolComponent = entity.getComponent(PointPoolComponent.class);
+        pointPoolComponent.poolValue = pointPoolComponent.maxPoolValue;
+        entity.saveComponent(pointPoolComponent);
+        logger.info("Current status " + pointPoolComponent.poolValue);
     }
 
     private float getStatus() {
