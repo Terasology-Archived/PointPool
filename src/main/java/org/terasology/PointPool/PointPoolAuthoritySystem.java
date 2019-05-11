@@ -71,8 +71,4 @@ public class PointPoolAuthoritySystem extends BaseComponentSystem {
         logger.info("Current status " + pointPoolComponent.poolValue);
     }
 
-    private float getStatus() {
-        return 0;
-    }
-
 }
