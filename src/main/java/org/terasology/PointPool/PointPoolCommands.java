@@ -17,6 +17,7 @@ package org.terasology.PointPool;
 
 import org.terasology.PointPool.event.DrainPoolEvent;
 import org.terasology.PointPool.event.FillPoolEvent;
+import org.terasology.PointPool.event.InstantDrainEvent;
 import org.terasology.entitySystem.Component;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
@@ -49,6 +50,14 @@ public class PointPoolCommands extends BaseComponentSystem {
         ClientComponent clientComp = client.getComponent(ClientComponent.class);
         clientComp.character.send(new DrainPoolEvent(amount, clientComp.character));
         return "Pool drained by " + amount;
+    }
+
+    @Command(value = "instantDrain", shortDescription = "Instantly drain the given pool",
+            requiredPermission = PermissionManager.NO_PERMISSION)
+    public String instantDrain(@Sender EntityRef client, @CommandParam("type") String type) {
+        ClientComponent clientComp = client.getComponent(ClientComponent.class);
+        clientComp.character.send(new InstantDrainEvent(type, clientComp.character));
+        return type + " Pool drained completely";
     }
 
     @Command(value = "listComponents", shortDescription = "Lists all components of character",
