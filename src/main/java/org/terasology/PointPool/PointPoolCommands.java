@@ -15,6 +15,7 @@
  */
 package org.terasology.PointPool;
 
+import org.terasology.PointPool.event.DrainPoolEvent;
 import org.terasology.PointPool.event.FillPoolEvent;
 import org.terasology.entitySystem.Component;
 import org.terasology.entitySystem.entity.EntityRef;
@@ -32,7 +33,7 @@ import org.terasology.registry.Share;
 @Share(PointPoolCommands.class)
 public class PointPoolCommands extends BaseComponentSystem {
 
-    @Command(value = "fill", shortDescription = "Fill pool by amount given",
+    @Command(value = "fillPool", shortDescription = "Fill pool by amount given",
             requiredPermission = PermissionManager.NO_PERMISSION)
     public String fill(@Sender EntityRef client, @CommandParam("amount") float amount) {
         ClientComponent clientComp = client.getComponent(ClientComponent.class);
@@ -40,6 +41,14 @@ public class PointPoolCommands extends BaseComponentSystem {
         clientComp.character.send(new FillPoolEvent(amount, clientComp.character));
 
         return "Pool filled by " + amount;
+    }
+
+    @Command(value = "drainPool", shortDescription = "Drain pool by amount given",
+            requiredPermission = PermissionManager.NO_PERMISSION)
+    public String drainPool(@Sender EntityRef client, @CommandParam("amount") float amount) {
+        ClientComponent clientComp = client.getComponent(ClientComponent.class);
+        clientComp.character.send(new DrainPoolEvent(amount, clientComp.character));
+        return "Pool drained by " + amount;
     }
 
     @Command(value = "listComponents", shortDescription = "Lists all components of character",
