@@ -26,16 +26,14 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.PointPool.event.FillPoolEvent;
-import org.terasology.protobuf.EntityData;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class PointPoolAuthoritySystem extends BaseComponentSystem {
 
     private static final Logger logger = LoggerFactory.getLogger(PointPoolAuthoritySystem.class);
 
-    @ReceiveEvent(components = {PointPoolComponent.class})
-    public void onFillPool(FillPoolEvent event, EntityRef entity) {
-        PointPoolComponent poolComponent = entity.getComponent(PointPoolComponent.class);
+    @ReceiveEvent
+    public void onFillPool(FillPoolEvent event, EntityRef entity, PointPoolComponent poolComponent) {
         poolComponent.poolValue += event.getValue();
         if (poolComponent.poolValue > poolComponent.maxPoolValue) {
             poolComponent.poolValue = poolComponent.maxPoolValue;
@@ -44,9 +42,8 @@ public class PointPoolAuthoritySystem extends BaseComponentSystem {
         logger.info("Current status " + poolComponent.poolValue);
     }
 
-    @ReceiveEvent(components = {PointPoolComponent.class})
-    public void drainPool(DrainPoolEvent event, EntityRef entity) {
-        PointPoolComponent pointPoolComponent = entity.getComponent(PointPoolComponent.class);
+    @ReceiveEvent
+    public void drainPool(DrainPoolEvent event, EntityRef entity, PointPoolComponent pointPoolComponent) {
         pointPoolComponent.poolValue -= event.getValue();
         if (pointPoolComponent.poolValue < 0) {
             pointPoolComponent.poolValue = 0;
@@ -55,17 +52,15 @@ public class PointPoolAuthoritySystem extends BaseComponentSystem {
         logger.info("Current status " + pointPoolComponent.poolValue);
     }
 
-    @ReceiveEvent(components = {PointPoolComponent.class})
-    public void instantDrain(InstantDrainEvent event, EntityRef entity) {
-        PointPoolComponent pointPoolComponent = entity.getComponent(PointPoolComponent.class);
+    @ReceiveEvent
+    public void instantDrain(InstantDrainEvent event, EntityRef entity, PointPoolComponent pointPoolComponent) {
         pointPoolComponent.poolValue = 0;
         entity.saveComponent(pointPoolComponent);
         logger.info("Current status " + pointPoolComponent.poolValue);
     }
 
-    @ReceiveEvent(components = {PointPoolComponent.class})
-    public void instantFill(InstantFillEvent event, EntityRef entity) {
-        PointPoolComponent pointPoolComponent = entity.getComponent(PointPoolComponent.class);
+    @ReceiveEvent
+    public void instantFill(InstantFillEvent event, EntityRef entity, PointPoolComponent pointPoolComponent) {
         pointPoolComponent.poolValue = pointPoolComponent.maxPoolValue;
         entity.saveComponent(pointPoolComponent);
         logger.info("Current status " + pointPoolComponent.poolValue);
