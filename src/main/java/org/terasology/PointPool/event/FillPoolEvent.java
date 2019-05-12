@@ -20,19 +20,19 @@ import org.terasology.entitySystem.event.Event;
 
 public class FillPoolEvent implements Event {
 
-    private float value;
+    private int value;
     private EntityRef instigator;
 
-    public FillPoolEvent(float value) {
+    public FillPoolEvent(int value) {
         this(value, EntityRef.NULL);
     }
 
-    public FillPoolEvent(float value, EntityRef instigator) {
+    public FillPoolEvent(int value, EntityRef instigator) {
         this.value = value;
         this.instigator = instigator;
     }
 
-    public float getValue() {
+    public int getValue() {
         return value;
     }
 

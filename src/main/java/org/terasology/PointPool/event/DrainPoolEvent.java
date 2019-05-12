@@ -20,19 +20,19 @@ import org.terasology.entitySystem.event.Event;
 
 public class DrainPoolEvent implements Event {
 
-    private float value;
+    private int value;
     private EntityRef instigator;
 
-    public DrainPoolEvent(float value) {
+    public DrainPoolEvent(int value) {
         this(value, EntityRef.NULL);
     }
 
-    public DrainPoolEvent(float value, EntityRef instigator) {
+    public DrainPoolEvent(int value, EntityRef instigator) {
         this.value = value;
         this.instigator = instigator;
     }
 
-    public float getValue() {
+    public int getValue() {
         return value;
     }
 

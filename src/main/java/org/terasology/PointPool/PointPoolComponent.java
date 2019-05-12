@@ -21,11 +21,11 @@ import org.terasology.network.Replicate;
 public class PointPoolComponent implements Component {
 
     @Replicate
-    public float poolValue = 100;
+    public int poolValue = 100;
 
     /* Defines the maximum value possible for the pool */
     @Replicate
-    public float maxPoolValue = 100;
+    public int maxPoolValue = 100;
 
     @Replicate
     public String poolType = "";
@@ -33,7 +33,7 @@ public class PointPoolComponent implements Component {
     public PointPoolComponent() {
     }
 
-    public PointPoolComponent(float poolValue, float maxPoolValue, String poolType) {
+    public PointPoolComponent(int poolValue, int maxPoolValue, String poolType) {
         this.poolValue = poolValue;
         this.maxPoolValue = maxPoolValue;
         this.poolType = poolType;
