@@ -18,6 +18,9 @@ package org.terasology.PointPool.event;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.Event;
 
+/**
+ * Event sent to completely drain the pool with given poolType
+ */
 public class InstantDrainEvent implements Event {
 
     String poolType = "";

@@ -18,6 +18,9 @@ package org.terasology.PointPool.event;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.Event;
 
+/**
+ * Event sent to fill pool by given value
+ */
 public class FillPoolEvent implements Event {
 
     private int value;

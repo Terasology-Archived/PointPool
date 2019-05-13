@@ -18,6 +18,9 @@ package org.terasology.PointPool.event;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.Event;
 
+/**
+ * Event sent to completely fill the pool of given poolType
+ */
 public class InstantFillEvent implements Event {
 
     String poolType = "";
