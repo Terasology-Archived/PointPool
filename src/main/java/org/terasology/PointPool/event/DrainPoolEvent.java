@@ -19,18 +19,18 @@ import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.Event;
 
 /**
- * Event sent to fill pool by given value
+ * Event sent to drain pool by given value
  */
-public class FillPoolEvent implements Event {
+public class DrainPoolEvent implements Event {
 
     private int value;
     private EntityRef instigator;
 
-    public FillPoolEvent(int value) {
+    public DrainPoolEvent(int value) {
         this(value, EntityRef.NULL);
     }
 
-    public FillPoolEvent(int value, EntityRef instigator) {
+    public DrainPoolEvent(int value, EntityRef instigator) {
         this.value = value;
         this.instigator = instigator;
     }

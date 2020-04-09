@@ -13,29 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.PointPool;
+package org.terasology.PointPool.event;
 
-import org.terasology.entitySystem.Component;
-import org.terasology.network.Replicate;
+import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.event.Event;
 
-public class PointPoolComponent implements Component {
+/**
+ * Event sent to completely drain the pool with given poolType
+ */
+public class InstantDrainEvent implements Event {
 
-    @Replicate
-    public int poolValue = 100;
+    String poolType = "";
+    private EntityRef instigator;
 
-    /* Defines the maximum value possible for the pool */
-    @Replicate
-    public int maxPoolValue = 100;
-
-    @Replicate
-    public String poolType = "";
-
-    public PointPoolComponent() {
+    public InstantDrainEvent(String type) {
+        this(type, EntityRef.NULL);
     }
 
-    public PointPoolComponent(int poolValue, int maxPoolValue, String poolType) {
-        this.poolValue = poolValue;
-        this.maxPoolValue = maxPoolValue;
-        this.poolType = poolType;
+    public InstantDrainEvent(String type, EntityRef instigator) {
+        this.poolType = type;
+        this.instigator = instigator;
+    }
+
+    public EntityRef getInstigator() {
+        return instigator;
     }
 }
